@@ -88,24 +88,24 @@ public class LISTA extends javax.swing.JFrame {
 
         tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Propietario", "No. Placa", "Tipo", "Hora de Entrada", "Hora de Salida"
+                "Propietario", "No. Placa", "Tipo", "Hora de Entrada"
             }
         ));
         tabla.addAncestorListener(new javax.swing.event.AncestorListener() {
@@ -168,7 +168,7 @@ public class LISTA extends javax.swing.JFrame {
         try{
             DefaultTableModel modelo=new DefaultTableModel();
             tabla.setModel(modelo);
-            String sql = "SELECT Propietario, Placa, Tipo_Vehiculo,Hora_Entrada,Hora_Salida FROM parqueo " + where;
+            String sql = "SELECT Propietario, Placa, Tipo_Vehiculo,Hora_Entrada FROM parqueo " + where;
 
             System.out.println(sql);
 
@@ -180,7 +180,6 @@ public class LISTA extends javax.swing.JFrame {
             modelo.addColumn("No. Placa");
             modelo.addColumn("Tip de Vehiculo");
             modelo.addColumn("Hora de Entrada");
-            modelo.addColumn("Hora de Salida");
             while(rs.next()){
                 Object [] filas = new Object[cantidadColumnas];
                 for(int i = 0; i< cantidadColumnas; i++){

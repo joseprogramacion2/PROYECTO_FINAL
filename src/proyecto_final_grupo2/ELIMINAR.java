@@ -4,12 +4,16 @@
  */
 package proyecto_final_grupo2;
 
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import javax.swing.table.DefaultTableModel;
 import java.sql.*;
+import java.sql.Connection;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 public class ELIMINAR extends javax.swing.JFrame {
+    DefaultTableModel model =new DefaultTableModel();
     conexion con= new conexion();
     Connection cn = con.conectar();
     PreparedStatement ps;
@@ -18,7 +22,7 @@ public class ELIMINAR extends javax.swing.JFrame {
     public ELIMINAR() {
         initComponents();
         setLocationRelativeTo(null);
-        consultar();
+        Mostrar();
     }
 
     /**
@@ -34,12 +38,10 @@ public class ELIMINAR extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        txtnoplaca = new javax.swing.JTextField();
+        txtCampo = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabla = new javax.swing.JTable();
-        jLabel4 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        txtsalida = new javax.swing.JTextField();
+        btneliminar = new javax.swing.JButton();
         fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -64,14 +66,20 @@ public class ELIMINAR extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("No. Placa:");
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 70, -1, -1));
-        jPanel2.add(txtnoplaca, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 70, 120, -1));
+
+        txtCampo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCampoActionPerformed(evt);
+            }
+        });
+        jPanel2.add(txtCampo, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 70, 120, -1));
 
         tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Propietario", "No. Placa", "Hora de Entrada", "Hora de Salida"
+                "Propietario", "No. Placa", "Tipo de Vehiculo", "Hora de Entrada"
             }
         ));
         tabla.addAncestorListener(new javax.swing.event.AncestorListener() {
@@ -87,15 +95,14 @@ public class ELIMINAR extends javax.swing.JFrame {
 
         jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 480, 160));
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Hora de Salida:");
-        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 270, -1, -1));
-
-        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton2.setText("ELIMINAR AUTO");
-        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 310, -1, -1));
-        jPanel2.add(txtsalida, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 270, 100, -1));
+        btneliminar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btneliminar.setText("ELIMINAR AUTO");
+        btneliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btneliminarActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btneliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 290, -1, -1));
 
         fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyecto_final_grupo2/53b2ddd96c334e8cd52202670476e653 (2).jpg"))); // NOI18N
         jPanel2.add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 350));
@@ -125,6 +132,15 @@ public class ELIMINAR extends javax.swing.JFrame {
     private void tablaAncestorMoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_tablaAncestorMoved
         // TODO add your handling code here:
     }//GEN-LAST:event_tablaAncestorMoved
+
+    private void btneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneliminarActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_btneliminarActionPerformed
+
+    private void txtCampoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCampoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCampoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -160,11 +176,11 @@ public class ELIMINAR extends javax.swing.JFrame {
             }
         });
     }
-    void consultar(){
+ void Mostrar(){
     try{
             DefaultTableModel modelo=new DefaultTableModel();
             tabla.setModel(modelo);
-            String sql = "SELECT Propietario, Placa, Tipo_Vehiculo,Hora_Entrada,Hora_Salida FROM parqueo ";
+            String sql = "SELECT Propietario, Placa, Tipo_Vehiculo,Hora_Entrada FROM parqueo ";
 
             System.out.println(sql);
 
@@ -176,7 +192,6 @@ public class ELIMINAR extends javax.swing.JFrame {
             modelo.addColumn("No. Placa");
             modelo.addColumn("Tip de Vehiculo");
             modelo.addColumn("Hora de Entrada");
-            modelo.addColumn("Hora de Salida");
             while(rs.next()){
                 Object [] filas = new Object[cantidadColumnas];
                 for(int i = 0; i< cantidadColumnas; i++){
@@ -187,19 +202,16 @@ public class ELIMINAR extends javax.swing.JFrame {
         }catch(SQLException ex){
             System.err.println(ex.toString());
 
-        }
-}
+        }   }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btneliminar;
     private javax.swing.JLabel fondo;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JTable tabla;
-    private javax.swing.JTextField txtnoplaca;
-    private javax.swing.JTextField txtsalida;
+    private javax.swing.JTextField txtCampo;
     // End of variables declaration//GEN-END:variables
 }

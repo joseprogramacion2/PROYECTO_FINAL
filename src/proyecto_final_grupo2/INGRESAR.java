@@ -44,7 +44,7 @@ public class INGRESAR extends javax.swing.JFrame {
         txtnoplaca = new javax.swing.JTextField();
         txtentrada = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
-        txtvehiculo = new javax.swing.JTextField();
+        sexo = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -96,7 +96,10 @@ public class INGRESAR extends javax.swing.JFrame {
             }
         });
         jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 270, -1, -1));
-        jPanel2.add(txtvehiculo, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 170, 190, -1));
+
+        sexo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        sexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "seleccionar:", "Moto", "Carro" }));
+        jPanel2.add(sexo, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 170, 190, -1));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -130,7 +133,7 @@ public class INGRESAR extends javax.swing.JFrame {
             PreparedStatement pps= cn.prepareStatement("INSERT INTO parqueo(Propietario,Placa,Tipo_Vehiculo,Hora_Entrada) VALUES(?,?,?,?)");
             pps.setString(1, txtpropietario.getText());
             pps.setString(2, txtnoplaca.getText());
-            pps.setString(3, txtvehiculo.getText());
+            pps.setString(3, (String) sexo.getSelectedItem());
             pps.setString(4, txtentrada.getText());
             pps.executeUpdate();
             JOptionPane.showMessageDialog(null, "Datos guardados");
@@ -183,9 +186,9 @@ public class INGRESAR extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JComboBox<String> sexo;
     private javax.swing.JTextField txtentrada;
     private javax.swing.JTextField txtnoplaca;
     private javax.swing.JTextField txtpropietario;
-    private javax.swing.JTextField txtvehiculo;
     // End of variables declaration//GEN-END:variables
 }
