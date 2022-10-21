@@ -7,9 +7,6 @@ package proyecto_final_grupo2;
 import java.sql.SQLException;
 import java.sql.*;
 import java.sql.Connection;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class ELIMINAR extends javax.swing.JFrame {

@@ -85,6 +85,17 @@ public class INGRESAR extends javax.swing.JFrame {
         jLabel6.setText("Hora de Entrada:");
         jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, -1, -1));
         jPanel2.add(txtpropietario, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 90, 190, -1));
+
+        txtnoplaca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtnoplacaActionPerformed(evt);
+            }
+        });
+        txtnoplaca.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtnoplacaKeyTyped(evt);
+            }
+        });
         jPanel2.add(txtnoplaca, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 130, 190, -1));
         jPanel2.add(txtentrada, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 210, 190, -1));
 
@@ -136,12 +147,23 @@ public class INGRESAR extends javax.swing.JFrame {
             pps.setString(3, (String) sexo.getSelectedItem());
             pps.setString(4, txtentrada.getText());
             pps.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Datos guardados");
+            JOptionPane.showMessageDialog(null, "Vehiculo Registrado");
         
         }catch(SQLException ex) {
             Logger.getLogger(INGRESAR.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void txtnoplacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnoplacaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtnoplacaActionPerformed
+
+    private void txtnoplacaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnoplacaKeyTyped
+        if(txtnoplaca.getText().length() >=8)
+        {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtnoplacaKeyTyped
 
     /**
      * @param args the command line arguments
