@@ -69,6 +69,12 @@ public class LISTA extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Propietario:");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, -1, -1));
+
+        txtCampos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtCamposKeyPressed(evt);
+            }
+        });
         jPanel1.add(txtCampos, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 70, 170, -1));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
@@ -192,6 +198,10 @@ public class LISTA extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void txtCamposKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCamposKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCamposKeyPressed
 
     /**
      * @param args the command line arguments

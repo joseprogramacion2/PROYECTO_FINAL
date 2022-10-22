@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.*;
 import javax.swing.JOptionPane;
 import java.util.logging.*;
+
 /**
  *
  * @author Dell G3
@@ -16,12 +17,22 @@ public class INGRESAR extends javax.swing.JFrame {
 
     conexion con = new conexion();
     Connection cn = con.conectar();
+    PreparedStatement ps;
+    ResultSet rs;
     /**
      * Creates new form INGRESAR
      */
     public INGRESAR() {
         initComponents();
         setLocationRelativeTo(null);
+        
+    }
+    private void LimpiarCajas(){
+        txtpropietario.setText(null);
+        txtnoplaca.setText(null);
+        sexo.setSelectedIndex(0);
+        txtentrada.setText(null);
+                
     }
 
     /**
@@ -53,8 +64,8 @@ public class INGRESAR extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Segoe Print", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("REGISTRAR VEHICULO");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 20, 290, 40));
+        jLabel2.setText("REGISTRAR  VEHICULO");
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, 320, 60));
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton1.setText("Regresar");
@@ -106,7 +117,7 @@ public class INGRESAR extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 270, -1, -1));
+        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 270, -1, -1));
 
         sexo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         sexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "seleccionar:", "Moto", "Carro" }));
@@ -115,13 +126,13 @@ public class INGRESAR extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyecto_final_grupo2/53b2ddd96c334e8cd52202670476e653 (2).jpg"))); // NOI18N
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 560, 350));
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 560, 350));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -148,7 +159,7 @@ public class INGRESAR extends javax.swing.JFrame {
             pps.setString(4, txtentrada.getText());
             pps.executeUpdate();
             JOptionPane.showMessageDialog(null, "Vehiculo Registrado");
-        
+            LimpiarCajas();
         }catch(SQLException ex) {
             Logger.getLogger(INGRESAR.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -176,7 +187,7 @@ public class INGRESAR extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }

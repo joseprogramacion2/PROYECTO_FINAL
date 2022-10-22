@@ -1,12 +1,13 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package proyecto_final_grupo2;
 
+import static java.awt.SystemColor.control;
 import java.sql.SQLException;
 import java.sql.*;
 import java.sql.Connection;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class ELIMINAR extends javax.swing.JFrame {
@@ -15,13 +16,21 @@ public class ELIMINAR extends javax.swing.JFrame {
     Connection cn = con.conectar();
     PreparedStatement ps;
     ResultSet rs;
+   
+  
+    
+    public void limpiar(){
+        txtbuscartodo.setText("");
+    }
+  
+            
     
     public ELIMINAR() {
         initComponents();
         setLocationRelativeTo(null);
         Mostrar();
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -35,10 +44,11 @@ public class ELIMINAR extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        txtCampo = new javax.swing.JTextField();
+        txtbuscartodo = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabla = new javax.swing.JTable();
         btneliminar = new javax.swing.JButton();
+        buscar = new javax.swing.JButton();
         fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -64,12 +74,17 @@ public class ELIMINAR extends javax.swing.JFrame {
         jLabel3.setText("No. Placa:");
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 70, -1, -1));
 
-        txtCampo.addActionListener(new java.awt.event.ActionListener() {
+        txtbuscartodo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCampoActionPerformed(evt);
+                txtbuscartodoActionPerformed(evt);
             }
         });
-        jPanel2.add(txtCampo, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 70, 120, -1));
+        txtbuscartodo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtbuscartodoKeyPressed(evt);
+            }
+        });
+        jPanel2.add(txtbuscartodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 70, 120, -1));
 
         tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -101,14 +116,23 @@ public class ELIMINAR extends javax.swing.JFrame {
         });
         jPanel2.add(btneliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 290, -1, -1));
 
+        buscar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        buscar.setText("BUSCAR");
+        buscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buscarActionPerformed(evt);
+            }
+        });
+        jPanel2.add(buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 70, -1, 20));
+
         fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyecto_final_grupo2/53b2ddd96c334e8cd52202670476e653 (2).jpg"))); // NOI18N
-        jPanel2.add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 350));
+        jPanel2.add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 560, 350));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -131,13 +155,52 @@ public class ELIMINAR extends javax.swing.JFrame {
     }//GEN-LAST:event_tablaAncestorMoved
 
     private void btneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneliminarActionPerformed
-        // TODO add your handling code here:
-
+    
     }//GEN-LAST:event_btneliminarActionPerformed
 
-    private void txtCampoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCampoActionPerformed
+    private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
+        String campo = txtbuscartodo.getText();
+        String where = "";
+
+        if(!"".equals(campo))
+        {
+            where = "WHERE Placa = '"+ campo + "'";
+        }
+        try{
+            DefaultTableModel modelo=new DefaultTableModel();
+            tabla.setModel(modelo);
+            String sql = "SELECT Propietario, Placa, Tipo_Vehiculo,Hora_Entrada FROM parqueo " + where;
+
+            System.out.println(sql);
+
+            ps =cn.prepareStatement(sql);
+            rs =ps.executeQuery();
+            ResultSetMetaData rsMd= rs.getMetaData();
+            int cantidadColumnas =rsMd.getColumnCount();
+            modelo.addColumn("Propietario");
+            modelo.addColumn("No. Placa");
+            modelo.addColumn("Tip de Vehiculo");
+            modelo.addColumn("Hora de Entrada");
+            while(rs.next()){
+                Object [] filas = new Object[cantidadColumnas];
+                for(int i = 0; i< cantidadColumnas; i++){
+                    filas [i]=rs.getObject(i+1);
+                }
+                modelo.addRow(filas);
+            }
+        }catch(SQLException ex){
+            System.err.println(ex.toString());
+
+        }
+    }//GEN-LAST:event_buscarActionPerformed
+
+    private void txtbuscartodoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtbuscartodoKeyPressed
+
+    }//GEN-LAST:event_txtbuscartodoKeyPressed
+
+    private void txtbuscartodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtbuscartodoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtCampoActionPerformed
+    }//GEN-LAST:event_txtbuscartodoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -177,6 +240,7 @@ public class ELIMINAR extends javax.swing.JFrame {
     try{
             DefaultTableModel modelo=new DefaultTableModel();
             tabla.setModel(modelo);
+           
             String sql = "SELECT Propietario, Placa, Tipo_Vehiculo,Hora_Entrada FROM parqueo ";
 
             System.out.println(sql);
@@ -199,9 +263,16 @@ public class ELIMINAR extends javax.swing.JFrame {
         }catch(SQLException ex){
             System.err.println(ex.toString());
 
-        }   }
+        }
+ } 
+
+           
+       
+ 
+ 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btneliminar;
+    private javax.swing.JButton buscar;
     private javax.swing.JLabel fondo;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
@@ -209,6 +280,6 @@ public class ELIMINAR extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JTable tabla;
-    private javax.swing.JTextField txtCampo;
+    private javax.swing.JTextField txtbuscartodo;
     // End of variables declaration//GEN-END:variables
 }
