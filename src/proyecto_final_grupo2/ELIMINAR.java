@@ -20,7 +20,7 @@ public class ELIMINAR extends javax.swing.JFrame {
   
     
     public void limpiar(){
-        txtbuscartodo.setText("");
+        txtbuscartodo.setText("");   
     }
   
             
@@ -29,6 +29,11 @@ public class ELIMINAR extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         Mostrar("");
+         
+    }
+    private void LimpiarCajas(){
+        txtbuscartodo.setText(null);
+                
     }
     
     /**
@@ -82,6 +87,9 @@ public class ELIMINAR extends javax.swing.JFrame {
         txtbuscartodo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtbuscartodoKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtbuscartodoKeyTyped(evt);
             }
         });
         jPanel2.add(txtbuscartodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 70, 120, -1));
@@ -187,9 +195,14 @@ public class ELIMINAR extends javax.swing.JFrame {
                     filas [i]=rs.getObject(i+1);
                 }
                 modelo.addRow(filas);
-            }
+                
+                
+            } 
+        LimpiarCajas();
         }catch(SQLException ex){
+       
             System.err.println(ex.toString());
+            
 
         }
     }//GEN-LAST:event_buscarActionPerformed
@@ -201,6 +214,13 @@ public class ELIMINAR extends javax.swing.JFrame {
     private void txtbuscartodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtbuscartodoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtbuscartodoActionPerformed
+
+    private void txtbuscartodoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtbuscartodoKeyTyped
+       if(txtbuscartodo.getText().length() >=8)
+        {
+            evt.consume();
+        }    
+    }//GEN-LAST:event_txtbuscartodoKeyTyped
 
     /**
      * @param args the command line arguments

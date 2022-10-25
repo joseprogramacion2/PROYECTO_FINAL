@@ -7,7 +7,7 @@ public class conexion {
     public Connection conectar(){
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
-            conectar=DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/parqueo_vehiculo","root","1234");
+            conectar=DriverManager.getConnection("jdbc:mysql://localhost:3306/parqueo_vehiculo","root","");
             JOptionPane.showMessageDialog(null, "Conexión exitosa", "Conexión", JOptionPane.INFORMATION_MESSAGE);
         }catch(ClassNotFoundException | SQLException e){
             JOptionPane.showMessageDialog(null, "Sin conexión" +e, "Conexión", JOptionPane.ERROR_MESSAGE);

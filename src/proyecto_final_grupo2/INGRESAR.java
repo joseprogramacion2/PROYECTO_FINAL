@@ -54,9 +54,9 @@ public class INGRESAR extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         txtpropietario = new javax.swing.JTextField();
         txtnoplaca = new javax.swing.JTextField();
-        txtentrada = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
         sexo = new javax.swing.JComboBox<>();
+        txtentrada = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -96,6 +96,12 @@ public class INGRESAR extends javax.swing.JFrame {
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Hora de Entrada:");
         jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, -1, -1));
+
+        txtpropietario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtpropietarioActionPerformed(evt);
+            }
+        });
         jPanel2.add(txtpropietario, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 90, 190, -1));
 
         txtnoplaca.addActionListener(new java.awt.event.ActionListener() {
@@ -109,7 +115,6 @@ public class INGRESAR extends javax.swing.JFrame {
             }
         });
         jPanel2.add(txtnoplaca, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 130, 190, -1));
-        jPanel2.add(txtentrada, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 210, 190, -1));
 
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton2.setText("REGISTRAR VEHICULO");
@@ -124,10 +129,17 @@ public class INGRESAR extends javax.swing.JFrame {
         sexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "seleccionar:", "Moto", "Carro" }));
         jPanel2.add(sexo, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 170, 190, -1));
 
+        txtentrada.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtentradaKeyTyped(evt);
+            }
+        });
+        jPanel2.add(txtentrada, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 210, 190, -1));
+
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/53b2ddd96c334e8cd52202670476e653 (2).jpg"))); // NOI18N
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 560, 350));
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 560, 350));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -177,6 +189,17 @@ public class INGRESAR extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtnoplacaKeyTyped
 
+    private void txtentradaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtentradaKeyTyped
+        if(txtentrada.getText().length() >=5)
+        {
+            evt.consume();
+        }  
+    }//GEN-LAST:event_txtentradaKeyTyped
+
+    private void txtpropietarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtpropietarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtpropietarioActionPerformed
+   
     /**
      * @param args the command line arguments
      */
