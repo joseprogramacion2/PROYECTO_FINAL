@@ -1,7 +1,8 @@
 
 package proyecto_final_grupo2;
 
-import static java.awt.SystemColor.control;
+
+import Conexion.conexion;
 import java.sql.SQLException;
 import java.sql.*;
 import java.sql.Connection;
@@ -11,8 +12,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class ELIMINAR extends javax.swing.JFrame {
-    DefaultTableModel model =new DefaultTableModel();
-    conexion con= new conexion();
+    conexion con = new conexion();
     Connection cn = con.conectar();
     PreparedStatement ps;
     ResultSet rs;
@@ -28,7 +28,7 @@ public class ELIMINAR extends javax.swing.JFrame {
     public ELIMINAR() {
         initComponents();
         setLocationRelativeTo(null);
-        Mostrar();
+        Mostrar("");
     }
     
     /**
@@ -46,7 +46,7 @@ public class ELIMINAR extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         txtbuscartodo = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tabla = new javax.swing.JTable();
+        Tabla = new javax.swing.JTable();
         btneliminar = new javax.swing.JButton();
         buscar = new javax.swing.JButton();
         fondo = new javax.swing.JLabel();
@@ -86,7 +86,7 @@ public class ELIMINAR extends javax.swing.JFrame {
         });
         jPanel2.add(txtbuscartodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 70, 120, -1));
 
-        tabla.setModel(new javax.swing.table.DefaultTableModel(
+        Tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -94,16 +94,16 @@ public class ELIMINAR extends javax.swing.JFrame {
                 "Propietario", "No. Placa", "Tipo de Vehiculo", "Hora de Entrada"
             }
         ));
-        tabla.addAncestorListener(new javax.swing.event.AncestorListener() {
+        Tabla.addAncestorListener(new javax.swing.event.AncestorListener() {
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
             }
             public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-                tablaAncestorMoved(evt);
+                TablaAncestorMoved(evt);
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
             }
         });
-        jScrollPane1.setViewportView(tabla);
+        jScrollPane1.setViewportView(Tabla);
 
         jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 480, 160));
 
@@ -125,7 +125,7 @@ public class ELIMINAR extends javax.swing.JFrame {
         });
         jPanel2.add(buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 70, -1, 20));
 
-        fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyecto_final_grupo2/53b2ddd96c334e8cd52202670476e653 (2).jpg"))); // NOI18N
+        fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/53b2ddd96c334e8cd52202670476e653 (2).jpg"))); // NOI18N
         jPanel2.add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 560, 350));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -150,12 +150,12 @@ public class ELIMINAR extends javax.swing.JFrame {
         new MENU().setState(java.awt.Frame.NORMAL);
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void tablaAncestorMoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_tablaAncestorMoved
+    private void TablaAncestorMoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_TablaAncestorMoved
         // TODO add your handling code here:
-    }//GEN-LAST:event_tablaAncestorMoved
+    }//GEN-LAST:event_TablaAncestorMoved
 
     private void btneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneliminarActionPerformed
-    
+    Borrar();
     }//GEN-LAST:event_btneliminarActionPerformed
 
     private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
@@ -168,7 +168,7 @@ public class ELIMINAR extends javax.swing.JFrame {
         }
         try{
             DefaultTableModel modelo=new DefaultTableModel();
-            tabla.setModel(modelo);
+            Tabla.setModel(modelo);
             String sql = "SELECT Propietario, Placa, Tipo_Vehiculo,Hora_Entrada FROM parqueo " + where;
 
             System.out.println(sql);
@@ -239,7 +239,7 @@ public class ELIMINAR extends javax.swing.JFrame {
  void Mostrar(){
     try{
             DefaultTableModel modelo=new DefaultTableModel();
-            tabla.setModel(modelo);
+            Tabla.setModel(modelo);
            
             String sql = "SELECT Propietario, Placa, Tipo_Vehiculo,Hora_Entrada FROM parqueo ";
 
@@ -266,11 +266,61 @@ public class ELIMINAR extends javax.swing.JFrame {
         }
  } 
 
+public void Mostrar(String Propietario){
+    DefaultTableModel modelo=new DefaultTableModel();
+    modelo.addColumn("Propietario");
+    modelo.addColumn("No. Placa");
+    modelo.addColumn("Tipo de Vehiculo");    
+    modelo.addColumn("Hora de Entrada");
+    Tabla.setModel(modelo);
+    String sql="";
+    if(Propietario.equals("")){
+        sql="Select*from parqueo";
+    }else{
+        sql="Select*from parqueo where Nombre like'%"+Propietario+"%'";
+    }
+    String parqueo[]=new String[4];
+    Statement set;
+    try {
+        set = cn.createStatement(); 
+        ResultSet resul=set.executeQuery(sql);
+        while(resul.next()){
+            parqueo[0]=resul.getString(1);
+              parqueo[1]=resul.getString(2);
+                parqueo[2]=resul.getString(3);  
+                parqueo[3]=resul.getString(4);
+                  modelo.addRow(parqueo);
+                  
+                
+        }
+        Tabla.setModel(modelo);
+    } catch (SQLException ex) {
+        Logger.getLogger(ELIMINAR.class.getName()).log(Level.SEVERE, null, ex);
+    }
+   
+    
+}
+ 
+public void Borrar(){
+    int fila=Tabla.getSelectedRow();
+    String Placa=Tabla.getValueAt(fila,1).toString();
+    int n=JOptionPane.showConfirmDialog(null,"Desea eliminar registro","ELIMINAR",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
+    if(n==JOptionPane.YES_NO_OPTION){
+    try {
+        PreparedStatement borrar=cn.prepareStatement("Delete from parqueo where Placa='"+Placa+"'");
+        borrar.executeUpdate();
+        Mostrar("");
+    } catch (SQLException ex) {
+        Logger.getLogger(ELIMINAR.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    }
+}
            
        
  
  
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JTable Tabla;
     private javax.swing.JButton btneliminar;
     private javax.swing.JButton buscar;
     private javax.swing.JLabel fondo;
@@ -279,7 +329,6 @@ public class ELIMINAR extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    public javax.swing.JTable tabla;
     private javax.swing.JTextField txtbuscartodo;
     // End of variables declaration//GEN-END:variables
 }

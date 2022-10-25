@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package proyecto_final_grupo2;
+import Conexion.conexion;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.*;
@@ -127,7 +128,7 @@ public class LISTA extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, 480, 230));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyecto_final_grupo2/53b2ddd96c334e8cd52202670476e653.jpg"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/53b2ddd96c334e8cd52202670476e653.jpg"))); // NOI18N
         jLabel1.setText("No. Placa");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 560, 450));
 

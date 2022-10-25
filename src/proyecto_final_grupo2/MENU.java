@@ -80,7 +80,7 @@ public class MENU extends javax.swing.JFrame {
         jLabel2.setText("PARQUEO UMG");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 50, -1, -1));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyecto_final_grupo2/53b2ddd96c334e8cd52202670476e653 (2).jpg"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/53b2ddd96c334e8cd52202670476e653 (2).jpg"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 560, 350));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
