@@ -163,52 +163,16 @@ public class ELIMINAR extends javax.swing.JFrame {
     }//GEN-LAST:event_TablaAncestorMoved
 
     private void btneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneliminarActionPerformed
-    Borrar();
+     Borrar();
     }//GEN-LAST:event_btneliminarActionPerformed
 
     private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
-        String campo = txtbuscartodo.getText();
-        String where = "";
-
-        if(!"".equals(campo))
-        {
-            where = "WHERE Placa = '"+ campo + "'";
-        }
-        try{
-            DefaultTableModel modelo=new DefaultTableModel();
-            Tabla.setModel(modelo);
-            String sql = "SELECT Propietario, Placa, Tipo_Vehiculo,Hora_Entrada FROM parqueo " + where;
-
-            System.out.println(sql);
-
-            ps =cn.prepareStatement(sql);
-            rs =ps.executeQuery();
-            ResultSetMetaData rsMd= rs.getMetaData();
-            int cantidadColumnas =rsMd.getColumnCount();
-            modelo.addColumn("Propietario");
-            modelo.addColumn("No. Placa");
-            modelo.addColumn("Tip de Vehiculo");
-            modelo.addColumn("Hora de Entrada");
-            while(rs.next()){
-                Object [] filas = new Object[cantidadColumnas];
-                for(int i = 0; i< cantidadColumnas; i++){
-                    filas [i]=rs.getObject(i+1);
-                }
-                modelo.addRow(filas);
-                
-                
-            } 
-        LimpiarCajas();
-        }catch(SQLException ex){
-       
-            System.err.println(ex.toString());
-            
-
-        }
+        
+     Buscar();
     }//GEN-LAST:event_buscarActionPerformed
 
     private void txtbuscartodoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtbuscartodoKeyPressed
-
+         
     }//GEN-LAST:event_txtbuscartodoKeyPressed
 
     private void txtbuscartodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtbuscartodoActionPerformed
@@ -256,35 +220,7 @@ public class ELIMINAR extends javax.swing.JFrame {
             }
         });
     }
- void Mostrar(){
-    try{
-            DefaultTableModel modelo=new DefaultTableModel();
-            Tabla.setModel(modelo);
-           
-            String sql = "SELECT Propietario, Placa, Tipo_Vehiculo,Hora_Entrada FROM parqueo ";
 
-            System.out.println(sql);
-
-            ps =cn.prepareStatement(sql);
-            rs =ps.executeQuery();
-            ResultSetMetaData rsMd= rs.getMetaData();
-            int cantidadColumnas =rsMd.getColumnCount();
-            modelo.addColumn("Propietario");
-            modelo.addColumn("No. Placa");
-            modelo.addColumn("Tip de Vehiculo");
-            modelo.addColumn("Hora de Entrada");
-            while(rs.next()){
-                Object [] filas = new Object[cantidadColumnas];
-                for(int i = 0; i< cantidadColumnas; i++){
-                    filas [i]=rs.getObject(i+1);
-                }
-                modelo.addRow(filas);
-            }
-        }catch(SQLException ex){
-            System.err.println(ex.toString());
-
-        }
- } 
 
 public void Mostrar(String Propietario){
     DefaultTableModel modelo=new DefaultTableModel();
@@ -335,9 +271,45 @@ public void Borrar(){
     }
     }
 }
-           
+public void Buscar(){  
+      String campo = txtbuscartodo.getText();
+        String where = "";
+
+        if(!"".equals(campo))
+        {
+            where = "WHERE Placa = '"+ campo + "'";
+        }
+        try{
+            DefaultTableModel modelo=new DefaultTableModel();
+            Tabla.setModel(modelo);
+            String sql = "SELECT Propietario, Placa, Tipo_Vehiculo,Hora_Entrada FROM parqueo " + where;
+
+            System.out.println(sql);
+
+            ps =cn.prepareStatement(sql);
+            rs =ps.executeQuery();
+            ResultSetMetaData rsMd= rs.getMetaData();
+            int cantidadColumnas =rsMd.getColumnCount();
+            modelo.addColumn("Propietario");
+            modelo.addColumn("No. Placa");
+            modelo.addColumn("Tip de Vehiculo");
+            modelo.addColumn("Hora de Entrada");
+            while(rs.next()){
+                Object [] filas = new Object[cantidadColumnas];
+                for(int i = 0; i< cantidadColumnas; i++){
+                    filas [i]=rs.getObject(i+1);
+                }
+                modelo.addRow(filas);
+                
+                
+            } 
+        LimpiarCajas();
+        }catch(SQLException ex){
        
- 
+            System.err.println(ex.toString());  
+    }        
+       
+ }
  
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JTable Tabla;

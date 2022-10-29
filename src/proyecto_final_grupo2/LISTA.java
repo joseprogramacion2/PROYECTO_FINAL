@@ -161,45 +161,7 @@ public class LISTA extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        String campo = txtCampo.getText();
-        String campo2 = txtCampos.getText();
-        String where = "";
-
-        if(!"".equals(campo))
-        {
-            where = "WHERE Placa = '"+ campo + "'";
-        }
-        if(!"".equals(campo2))
-        {
-            where = "WHERE Propietario = '"+ campo2 + "'";
-        }
-        try{
-            DefaultTableModel modelo=new DefaultTableModel();
-            tabla.setModel(modelo);
-            String sql = "SELECT Propietario, Placa, Tipo_Vehiculo,Hora_Entrada FROM parqueo " + where;
-
-            System.out.println(sql);
-
-            ps =cn.prepareStatement(sql);
-            rs =ps.executeQuery();
-            ResultSetMetaData rsMd= rs.getMetaData();
-            int cantidadColumnas =rsMd.getColumnCount();
-            modelo.addColumn("Propietario");
-            modelo.addColumn("No. Placa");
-            modelo.addColumn("Tip de Vehiculo");
-            modelo.addColumn("Hora de Entrada");
-            while(rs.next()){
-                Object [] filas = new Object[cantidadColumnas];
-                for(int i = 0; i< cantidadColumnas; i++){
-                    filas [i]=rs.getObject(i+1);
-                }
-                modelo.addRow(filas);
-            }
-        LimpiarCajas();
-        }catch(SQLException ex){
-            System.err.println(ex.toString());
-
-        }
+    Consultar();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void txtCamposKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCamposKeyPressed
@@ -247,7 +209,46 @@ public class LISTA extends javax.swing.JFrame {
             }
         });
     }
+public void Consultar(){
+        String campo = txtCampo.getText();
+        String campo2 = txtCampos.getText();
+        String where = "";
 
+        if(!"".equals(campo))
+        {
+            where = "WHERE Placa = '"+ campo + "'";
+        }
+        if(!"".equals(campo2))
+        {
+            where = "WHERE Propietario = '"+ campo2 + "'";
+        }
+        try{
+            DefaultTableModel modelo=new DefaultTableModel();
+            tabla.setModel(modelo);
+            String sql = "SELECT Propietario, Placa, Tipo_Vehiculo,Hora_Entrada FROM parqueo " + where;
+
+            System.out.println(sql);
+
+            ps =cn.prepareStatement(sql);
+            rs =ps.executeQuery();
+            ResultSetMetaData rsMd= rs.getMetaData();
+            int cantidadColumnas =rsMd.getColumnCount();
+            modelo.addColumn("Propietario");
+            modelo.addColumn("No. Placa");
+            modelo.addColumn("Tip de Vehiculo");
+            modelo.addColumn("Hora de Entrada");
+            while(rs.next()){
+                Object [] filas = new Object[cantidadColumnas];
+                for(int i = 0; i< cantidadColumnas; i++){
+                    filas [i]=rs.getObject(i+1);
+                }
+                modelo.addRow(filas);
+            }
+        LimpiarCajas();
+        }catch(SQLException ex){
+            System.err.println(ex.toString());
+
+        }}
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

@@ -31,7 +31,7 @@ public class INGRESAR extends javax.swing.JFrame {
     private void LimpiarCajas(){
         txtpropietario.setText(null);
         txtnoplaca.setText(null);
-        sexo.setSelectedIndex(0);
+        vehiculo.setSelectedIndex(0);
         txtentrada.setText(null);
                 
     }
@@ -55,7 +55,7 @@ public class INGRESAR extends javax.swing.JFrame {
         txtpropietario = new javax.swing.JTextField();
         txtnoplaca = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
-        sexo = new javax.swing.JComboBox<>();
+        vehiculo = new javax.swing.JComboBox<>();
         txtentrada = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
 
@@ -125,9 +125,9 @@ public class INGRESAR extends javax.swing.JFrame {
         });
         jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 270, -1, -1));
 
-        sexo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        sexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "seleccionar:", "Moto", "Carro" }));
-        jPanel2.add(sexo, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 170, 190, -1));
+        vehiculo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        vehiculo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "seleccionar:", "Moto", "Carro" }));
+        jPanel2.add(vehiculo, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 170, 190, -1));
 
         txtentrada.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -164,18 +164,7 @@ public class INGRESAR extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        try{
-            PreparedStatement pps= cn.prepareStatement("INSERT INTO parqueo(Propietario,Placa,Tipo_Vehiculo,Hora_Entrada) VALUES(?,?,?,?)");
-            pps.setString(1, txtpropietario.getText());
-            pps.setString(2, txtnoplaca.getText());
-            pps.setString(3, (String) sexo.getSelectedItem());
-            pps.setString(4, txtentrada.getText());
-            pps.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Vehiculo Registrado");
-            LimpiarCajas();
-        }catch(SQLException ex) {
-            Logger.getLogger(INGRESAR.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        Guardar();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void txtnoplacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnoplacaActionPerformed
@@ -232,7 +221,19 @@ public class INGRESAR extends javax.swing.JFrame {
             new INGRESAR().setVisible(true);
         });
     }
-
+public void Guardar(){
+    try{
+        PreparedStatement pps= cn.prepareStatement("INSERT INTO parqueo(Propietario,Placa,Tipo_Vehiculo,Hora_Entrada) VALUES(?,?,?,?)");
+        pps.setString(1, txtpropietario.getText());
+        pps.setString(2, txtnoplaca.getText());
+        pps.setString(3, (String) vehiculo.getSelectedItem());
+        pps.setString(4, txtentrada.getText());
+        pps.executeUpdate();
+        JOptionPane.showMessageDialog(null, "Vehiculo Registrado");
+        LimpiarCajas();
+        }catch(SQLException ex) {
+            Logger.getLogger(INGRESAR.class.getName()).log(Level.SEVERE, null, ex);
+        }}
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -243,9 +244,9 @@ public class INGRESAR extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JComboBox<String> sexo;
     private javax.swing.JTextField txtentrada;
     private javax.swing.JTextField txtnoplaca;
     private javax.swing.JTextField txtpropietario;
+    private javax.swing.JComboBox<String> vehiculo;
     // End of variables declaration//GEN-END:variables
 }
